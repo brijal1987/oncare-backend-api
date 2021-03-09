@@ -14,5 +14,7 @@ router.get('/profile', passport.authenticate('jwt', { session: false }), userCon
 router.get('/users', passport.authenticate('jwt', { session: false }), userController.users)
 router.delete('/users/:id', passport.authenticate('jwt', { session: false }), userController.delete_user)
 router.put('/users/:id', passport.authenticate('jwt', { session: false }), userController.update_user)
+router.get('/users/:id', passport.authenticate('jwt', { session: false }), userController.get_user)
+router.get('/logout', passport.authenticate('jwt', { session: false }), userController.logout)
 
 module.exports = router

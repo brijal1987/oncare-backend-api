@@ -1,6 +1,21 @@
 # dockerize-image
 
 ## Clone Repo
+`git clone https://github.com/brijal1987/oncare-backend-api.git`
+
+# Building by docker compose
+
+## Start Server - Building docker image
+`docker-compose up -d --build`
+
+## Check API running on
+`http://localhost:8000/`
+
+## Stop Server
+`docker-compose stop`
+
+
+# Building by docker
 
 ## Build Docker image
 `docker build -t doc_container_2 .`

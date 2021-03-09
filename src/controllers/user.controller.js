@@ -56,7 +56,7 @@ exports.login = async (req, res, next) => {
             const body = { id: userInfo.id, email: userInfo.email }
             const token = jwt.sign({ user: body }, 'TOP_SECRET')
 
-            return res.json({ token })
+            return res.json({ token, user: { firstname: userInfo.first_name, lastname: userInfo.last_name, email: userInfo.email } })
           }
         )
       } catch (error) {
@@ -64,6 +64,14 @@ exports.login = async (req, res, next) => {
       }
     }
   )(req, res, next)
+}
+
+exports.logout = (req, res) => {
+  req.logout()
+  res.json({
+    success: 1,
+    message: 'Logout'
+  })
 }
 
 exports.register = async (req, res, next) => {
@@ -81,7 +89,6 @@ exports.register = async (req, res, next) => {
         }
 
         const userExist = await getUserByEmail(email)
-        console.log(userExist, email)
         if (userExist) {
           return res.json({
             message: `User (${email}) already found`,
@@ -119,9 +126,25 @@ exports.profile = async (req, res, next) => {
 }
 
 exports.users = async (req, res, next) => {
-  const users = await db.User.findAll()
+  const users = await db.User.findAll({attributes: ['id', 'first_name', 'last_name', 'email']})
   res.json({
     users
+  })
+}
+
+exports.get_user = async (req, res, next) => {
+  const id = parseInt(req.params.id)
+  const user = await getUserByID(id)
+
+  if (!user) {
+    return res.json({
+      message: `User (${id}) not found`,
+      error: 1
+    })
+  }
+
+  res.json({
+    user
   })
 }
 
