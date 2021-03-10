@@ -8,7 +8,9 @@
     "start": "node src/app.js",
     "migrate": "node_modules/.bin/sequelize db:migrate",
     "migrate:undo": "node_modules/.bin/sequelize db:migrate:undo",
-    "seed": "node_modules/.bin/sequelize db:seed:all"
+    "seed": "node_modules/.bin/sequelize db:seed:all",
+    "docker-up": "docker-compose up -d --build",
+    "docker-stop": "docker-compose stop"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
